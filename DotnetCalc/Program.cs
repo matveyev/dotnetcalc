@@ -1,10 +1,8 @@
 ﻿using System;
 using Ninject;
 using Ninject.Modules; 
-using System.Reflection;
 
-
-namespace ConsoleApplication
+namespace DotnetCalc
 {
     public class Bindings : NinjectModule {
        public override void Load() {
@@ -15,12 +13,10 @@ namespace ConsoleApplication
 
     public class Program
     {
-        
         public static void Main(string[] args)
         {
-            var kernel = new StandardKernel();
-            kernel.Load(Assembly.GetExecutingAssembly());
-
+            var kernel = new StandardKernel(new Bindings());
+            
             Console.WriteLine("Enter I to work in Integer mode, anything else to work in Double mode:");
             if (Console.ReadLine().ToLower() == "i") {
                 RunCalc<int>(kernel);
